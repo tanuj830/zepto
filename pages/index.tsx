@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 const inter = Inter({ subsets: ["latin"] });
 import list from "../constants/list";
 import { IoIosClose } from "react-icons/io";
+import Link from "next/link";
+import { IoNavigateOutline } from "react-icons/io5";
 
 const Home = () => {
   const [showList, setShowList] = useState(false);
@@ -65,60 +67,83 @@ const Home = () => {
     setItems(newItems);
   };
   return (
-    <main className="h-screen p-20 flex relative">
-      <img
-        src="https://tse1.mm.bing.net/th?id=OIP.nNmwLdvevxvBJNvLSiElwQHaHa&pid=Api&P=0&h=200"
-        className="absolute top-[40%] left-[44%] rounded-full animate-pulse"
-        alt=""
-      />
-      <div className="border border-[#38075d] shadow-2xl w-full rounded-3xl backdrop-blur-sm p-10 overflow-hidden">
-        <h1 className="text-white font-bold text-xl pb-10">
-          Zepto Chip Component: Assignment
-        </h1>
-        {/* displaying chips */}
-        <div className="flex flex-row flex-wrap gap-2">
-          {items.map((name, ind) => (
-            <div key={ind}>
-              {name.length != 0 ? (
-                <div
-                  className="text-white px-3 py-1  rounded-full bg-[#B22349] flex items-center"
-                  key={ind}
-                >
-                  <span>{name}</span>
-                  <span
-                    className="ml-3 text-2xl"
-                    onClick={() => handleDelete(name)}
+    <main className="h-screen p-4 md:p-10">
+      <div className="flex justify-center md:items-center h-full">
+        <div className="md:border w-full md:w-[70%] lg:w-[40%] md:shadow-md rounded-3xl backdrop-blur-sm md:p-10 overflow-hidden">
+          <div className="flex gap-x-2 items-center ">
+            <img
+              src="https://tse1.mm.bing.net/th?id=OIP.pDtzEPOQOzzjbcld_yWu3wHaDt&pid=Api&P=0&h=40"
+              alt=""
+            />
+            <h1 className=" font-base text-md md:text-md pb-3 text-gray-500">
+              | Chip Component: Assignment
+            </h1>
+          </div>
+          <Link
+            href="/input"
+            className="text-white flex items-center  gap-1 w-24 p-1 rounded-full bg-pink-500"
+          >
+            <span className="text-xs font-base">Check Input</span>
+            <IoNavigateOutline />
+          </Link>
+
+          {/* displaying chips */}
+          <div className="flex flex-row flex-wrap gap-2 py-8">
+            {items.map((name, ind) => (
+              <div key={ind}>
+                {name.length != 0 ? (
+                  <div
+                    className="font-medium px-3 py-1  bg-pink-500/5 text-sm rounded-full border border-[#F5436B] flex items-center"
+                    key={ind}
                   >
-                    <IoIosClose />
-                  </span>
-                </div>
-              ) : null}
-            </div>
-          ))}
-        </div>
-        <form onSubmit={(e) => addTextToList(e)}>
-          <input
-            id="name"
-            onClick={handleShowList}
-            onChange={(e) => handleText(e)}
-            onKeyDown={handleKeyDown}
-            type="text"
-            className="w-full bg-transparent border-b border-[#B22349] py-4 text-white outline-none"
-          />
-        </form>
-        <div
-          className={`bg-white w-96 rounded-xl mt-1 ${
-            showList === true ? "block" : "hidden"
-          }`}
-        >
-          <small className="px-4 pt-1 italic text-gray-500">
-            Matching Results
-          </small>
-          {recommendedList.map((n) => (
-            <h2 className="py-3 hover:bg-[#38075d]/10 px-4" key={n}>
-              {n}
-            </h2>
-          ))}
+                    <span>{name}</span>
+                    <span
+                      className="ml-3 text-2xl"
+                      onClick={() => handleDelete(name)}
+                    >
+                      <IoIosClose />
+                    </span>
+                  </div>
+                ) : null}
+              </div>
+            ))}
+          </div>
+          <form onSubmit={(e) => addTextToList(e)}>
+            <input
+              id="name"
+              onClick={handleShowList}
+              onChange={(e) => handleText(e)}
+              onKeyDown={handleKeyDown}
+              type="text"
+              className="w-full bg-pink-300/5 border rounded-full px-6 border-[#B22349] py-4   outline-none"
+            />
+          </form>
+          <div
+            className={`bg-white w-full rounded-xl mt-1 ${
+              showList === true ? "block" : "hidden"
+            }`}
+          >
+            <small className="px-4 pt-1 italic text-gray-500">
+              Matching Results
+            </small>
+            {recommendedList.map((na) => (
+              <h2
+                className="py-3 hover:bg-[#F5436B]/5 px-4"
+                key={na}
+                onClick={() => {
+                  const listCopy = [...lists];
+                  const newlist = listCopy.filter((n) => n !== na);
+                  setLists(newlist);
+                  setItems((olditems) => [...olditems, na]);
+                  // e.target.reset();
+                  setText("");
+                  setRecommendedList([""]);
+                }}
+              >
+                {na}
+              </h2>
+            ))}
+          </div>
         </div>
       </div>
     </main>
