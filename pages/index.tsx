@@ -115,7 +115,8 @@ const Home = () => {
               onChange={(e) => handleText(e)}
               onKeyDown={handleKeyDown}
               type="text"
-              className="w-full bg-pink-300/5 border rounded-full px-6 border-[#B22349] py-4   outline-none"
+              placeholder="Example: Marina Augustine"
+              className="w-full bg-pink-300/5 border text-base rounded-full px-6 border-[#B22349] py-4   outline-none"
             />
           </form>
           <div
@@ -128,7 +129,7 @@ const Home = () => {
             </small>
             {recommendedList.map((na) => (
               <h2
-                className="py-3 hover:bg-[#F5436B]/5 px-4"
+                className="py-3 rounded-md hover:bg-[#F5436B]/5 px-4"
                 key={na}
                 onClick={() => {
                   const listCopy = [...lists];
